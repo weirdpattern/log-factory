@@ -1,0 +1,9 @@
+# Specific to JetBrains
+.idea/
+
+# Specific to mac
+.DS_Store
+
+# Specific to node
+node_modules/
+*.log
