@@ -13,10 +13,32 @@
   },
 
   "dependencies": {
-    "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "babel-core": "^6.9.1",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0"
+  },
+
+  "devDependencies": {
+    "snazzy": "*",
+    "semistandard": "*",
+    "babel-eslint": "*",
+    "tape": "*",
+    "tap-summary": "*",
+    "babel-istanbul": "*",
+    "coveralls": "*"
+  },
+
+  "scripts": {
+    "lint": "semistandard --verbose | snazzy",
+    "specs": "tape ./spec/index.js | tap-summary",
+    "test": "npm run lint && npm run specs",
+    "coverage": "babel-istanbul cover ./spec/**/*.js",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "review": "npm run test && npm run coverage"
+  },
+
+  "semistandard": {
+    "parser": "babel-eslint"
   }
 }
