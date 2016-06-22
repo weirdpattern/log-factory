@@ -236,4 +236,61 @@ export default function (test, LevelRangeFilter) {
     assert.equals(fatalLevelDeny.test(errorEvent), FilterResults.DENY, 'error events must not be allowed');
     assert.equals(fatalLevelDeny.test(fatalEvent), FilterResults.ALLOW, 'fatal events must be allowed');
   });
+
+  test('filter level-range-filter locked:false', (assert) => {
+    const filter = new LevelRangeFilter(audit, fatal, { 'locked': false });
+
+    assert.comment('with all levels');
+    assert.equals(filter.test(auditEvent), FilterResults.ALLOW, 'audit events must be allowed');
+    assert.equals(filter.test(debugEvent), FilterResults.ALLOW, 'debug events must be allowed');
+    assert.equals(filter.test(infoEvent), FilterResults.ALLOW, 'info events must be allowed');
+    assert.equals(filter.test(warnEvent), FilterResults.ALLOW, 'warning events must be allowed');
+    assert.equals(filter.test(errorEvent), FilterResults.ALLOW, 'error events must be allowed');
+    assert.equals(filter.test(fatalEvent), FilterResults.ALLOW, 'fatal events must be allowed');
+
+    assert.comment('does not throw with');
+    assert.doesNotThrow(() => { filter.min = warn; }, 'updating the min level');
+    assert.equals(filter.test(auditEvent), FilterResults.DENY, 'audit events must not be allowed');
+    assert.equals(filter.test(debugEvent), FilterResults.DENY, 'debug events must not be allowed');
+    assert.equals(filter.test(infoEvent), FilterResults.DENY, 'info events must not be allowed');
+    assert.equals(filter.test(warnEvent), FilterResults.ALLOW, 'warning events must be allowed');
+    assert.equals(filter.test(errorEvent), FilterResults.ALLOW, 'error events must be allowed');
+    assert.equals(filter.test(fatalEvent), FilterResults.ALLOW, 'fatal events must be allowed');
+
+    assert.doesNotThrow(() => { filter.max = error; }, 'updating the max level');
+    assert.equals(filter.test(auditEvent), FilterResults.DENY, 'audit events must not be allowed');
+    assert.equals(filter.test(debugEvent), FilterResults.DENY, 'debug events must not be allowed');
+    assert.equals(filter.test(infoEvent), FilterResults.DENY, 'info events must not be allowed');
+    assert.equals(filter.test(warnEvent), FilterResults.ALLOW, 'warning events must be allowed');
+    assert.equals(filter.test(errorEvent), FilterResults.ALLOW, 'error events must be allowed');
+    assert.equals(filter.test(fatalEvent), FilterResults.DENY, 'fatal events must not be allowed');
+
+    assert.doesNotThrow(() => { filter.deny = true; }, 'updating the deny flag');
+  });
+
+  test('filter level-range-filter locked:true', (assert) => {
+    const filter = new LevelRangeFilter(audit, fatal, { 'locked': true });
+
+    assert.comment('with all levels');
+    assert.equals(filter.test(auditEvent), FilterResults.ALLOW, 'audit events must be allowed');
+    assert.equals(filter.test(debugEvent), FilterResults.ALLOW, 'debug events must be allowed');
+    assert.equals(filter.test(infoEvent), FilterResults.ALLOW, 'info events must be allowed');
+    assert.equals(filter.test(warnEvent), FilterResults.ALLOW, 'warning events must be allowed');
+    assert.equals(filter.test(errorEvent), FilterResults.ALLOW, 'error events must be allowed');
+    assert.equals(filter.test(fatalEvent), FilterResults.ALLOW, 'fatal events must be allowed');
+
+    assert.comment('throws with');
+    assert.throws(() => { filter.min = warn; }, 'updating the min level');
+    assert.throws(() => { filter.max = error; }, 'updating the max level');
+    assert.throws(() => { filter.deny = true; }, 'updating the deny option');
+  });
+
+  test('filter level-range-filter special cases', (assert) => {
+    const filter = new LevelRangeFilter(info, warn, { 'locked': true });
+
+    assert.comment('throws with');
+    assert.throws(() => { filter.min = 1; }, 'updating min with an invalid level');
+    assert.throws(() => { filter.min = fatal; }, 'updating min to a level higher than max');
+    assert.throws(() => { filter.max = audit; }, 'updating max to a level lower than min');
+  });
 }

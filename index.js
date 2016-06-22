@@ -1,6 +1,4 @@
-/**
- * @module log
- */
-
 require('babel-core/register');
 require('babel-polyfill');
+
+module.exports = require('./lib/factory');
