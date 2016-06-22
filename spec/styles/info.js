@@ -1,5 +1,4 @@
-import Style from '../../lib/styles/Style';
-import { Foregrounds, Backgrounds, Modifiers } from '../../lib/styles/style';
+import Style, { Foregrounds, Backgrounds, Modifiers } from '../../lib/styles/style';
 
 export default function (test, info) {
   test('style info', (assert) => {
