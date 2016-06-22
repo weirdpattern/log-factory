@@ -1,6 +1,6 @@
-import { ExtensionPoints } from '../../lib/common/utils';
+const ExtensionPoints = require('../../lib/common/utils').ExtensionPoints;
 
-export default function (test, extend) {
+module.exports = function (test, extend) {
   test('function extend', (assert) => {
     const closedObject = Object.preventExtensions({});
     const composeObject = Object.create(Object);
@@ -120,4 +120,4 @@ export default function (test, extend) {
     assert.notOk(enumerableAndWritableObject.configurable, 'configurable must be false');
     assert.equals(enumerableAndWritableObject.value, 1, 'value must be 1');
   });
-}
+};

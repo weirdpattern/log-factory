@@ -1,6 +1,8 @@
-import Filter, { FilterResults } from '../../lib/filters/filter';
+const filter = require('../../lib/filters/filter');
+const Filter = filter.Filter;
+const FilterResults = filter.FilterResults;
 
-export default function (test, AllowFilter) {
+module.exports = function (test, AllowFilter) {
   const allowFilter = new AllowFilter();
 
   test('filter allow-filter', (assert) => {
@@ -8,4 +10,4 @@ export default function (test, AllowFilter) {
     assert.equals(allowFilter.filter, void 0, 'filter must be undefined');
     assert.equals(allowFilter.test(), FilterResults.ALLOW, 'filter must return ALLOW');
   });
-}
+};

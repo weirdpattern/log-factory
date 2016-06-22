@@ -12,35 +12,23 @@
     "node": "^4.4.3"
   },
 
-  "dependencies": {
-    "babel-register": "^6.9.0",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0"
-  },
-
   "devDependencies": {
     "glob": "*",
     "snazzy": "*",
     "tape": "*",
     "tap-spec": "*",
     "semistandard": "*",
-    "babel-eslint": "*",
-    "babel-istanbul": "*",
-    "babel-cli": "*",
+    "istanbul": "*",
     "coveralls": "*"
   },
 
   "scripts": {
     "lint": "semistandard --verbose | snazzy",
-    "specs": "babel-node node_modules/.bin/tape ./spec/index.js | tap-spec",
+    "specs": "tape ./spec/index.js | tap-spec",
     "test": "npm run lint && npm run specs",
-    "coverage": "babel-node node_modules/.bin/babel-istanbul cover --include-all-sources -x index.js -x spec/index.js tape -- spec/index.js",
+    "coverage": "istanbul cover -x index.js -x spec/index.js tape -- spec/index.js",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "review-coverage": "open ./coverage/lcov-report/index.html",
     "validate": "npm run test && npm run coverage >/dev/null && npm run review-coverage"
-  },
-
-  "semistandard": {
-    "parser": "babel-eslint"
   }
 }

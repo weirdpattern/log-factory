@@ -1,6 +1,8 @@
-import Filter, { FilterResults } from '../../lib/filters/filter';
+const filter = require('../../lib/filters/filter');
+const Filter = filter.Filter;
+const FilterResults = filter.FilterResults;
 
-export default function (test, PassFilter) {
+module.exports = function (test, PassFilter) {
   const passFilter = new PassFilter();
 
   test('filter pass-filter', (assert) => {
@@ -8,4 +10,4 @@ export default function (test, PassFilter) {
     assert.equals(passFilter.filter, void 0, 'filter must be undefined');
     assert.equals(passFilter.test(), FilterResults.PASS, 'filter must return PASS');
   });
-}
+};

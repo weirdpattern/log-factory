@@ -1,13 +1,15 @@
-import audit from '../../lib/levels/audit';
-import debug from '../../lib/levels/debug';
-import info from '../../lib/levels/info';
-import warn from '../../lib/levels/warn';
-import error from '../../lib/levels/error';
-import fatal from '../../lib/levels/fatal';
-import { LogEvent } from '../../lib/logger';
-import Filter, { FilterResults } from '../../lib/filters/filter';
+const audit = require('../../lib/levels/audit');
+const debug = require('../../lib/levels/debug');
+const info = require('../../lib/levels/info');
+const warn = require('../../lib/levels/warn');
+const error = require('../../lib/levels/error');
+const fatal = require('../../lib/levels/fatal');
+const LogEvent = require('../../lib/logger').LogEvent;
+const filter = require('../../lib/filters/filter');
+const Filter = filter.Filter;
+const FilterResults = filter.FilterResults;
 
-export default function (test, LevelFilter) {
+module.exports = function (test, LevelFilter) {
   const auditEvent = new LogEvent('test', audit, 'this is a test');
   const debugEvent = new LogEvent('test', debug, 'this is a test');
   const infoEvent = new LogEvent('test', info, 'this is a test');
@@ -306,9 +308,12 @@ export default function (test, LevelFilter) {
     assert.throws(() => filter.addLevel(audit), 'adding a level');
     assert.throws(() => filter.removeLevel(audit), 'removing a level');
     assert.throws(() => filter.clearLevels(), 'clearing all levels');
-    assert.throws(() => { filter.levels.length = 0; }, 'updating the levels variable');
     assert.throws(() => { filter.levels.push(debug); }, 'updating the levels variable');
-    assert.throws(() => { filter.deny = true; }, 'updating the deny option');
+
+    filter.levels.length = 5;
+    filter.deny = false;
+    assert.equals(filter.levels.length, 0, 'updating the levels variable');
+    assert.equals(filter.deny, true, 'updating the deny option');
   });
 
   test('filter level-filter adding new levels', (assert) => {
@@ -373,4 +378,4 @@ export default function (test, LevelFilter) {
     assert.doesNotThrow(() => filter.clearLevels(), 'clearing all levels is allowed');
     assert.equals(filter.levels.length, 0, 'levels length is 0');
   });
-}
+};

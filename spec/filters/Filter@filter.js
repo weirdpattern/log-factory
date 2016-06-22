@@ -1,12 +1,12 @@
-import warn from '../../lib/levels/warn';
-import fatal from '../../lib/levels/fatal';
-import LevelFilter from '../../lib/filters/level-filter';
-import AllowFilter from '../../lib/filters/allow-filter';
-import LevelThresholdFilter from '../../lib/filters/level-threshold-filter';
-import { FilterResults } from '../../lib/filters/filter';
-import { LogEvent } from '../../lib/logger';
+const warn = require('../../lib/levels/warn');
+const fatal = require('../../lib/levels/fatal');
+const LevelFilter = require('../../lib/filters/level-filter');
+const AllowFilter = require('../../lib/filters/allow-filter');
+const LevelThresholdFilter = require('../../lib/filters/level-threshold-filter');
+const FilterResults = require('../../lib/filters/filter').FilterResults;
+const LogEvent = require('../../lib/logger').LogEvent;
 
-export default function (test, Filter) {
+module.exports = function (test, Filter) {
   test('object Filter', (assert) => {
     const filter = new Filter();
 
@@ -33,4 +33,4 @@ export default function (test, Filter) {
 
     assert.equals(count, 3, 'the count number does not match');
   });
-}
+};

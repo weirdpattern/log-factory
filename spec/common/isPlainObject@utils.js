@@ -1,4 +1,4 @@
-export default function (test, isPlainObject) {
+module.exports = function (test, isPlainObject) {
   test('function isPlainObject', (assert) => {
     assert.comment('undefined values');
     assert.notOk(isPlainObject(void 0), 'undefined values must return false');
@@ -29,4 +29,4 @@ export default function (test, isPlainObject) {
     assert.comment('{} values');
     assert.ok(isPlainObject({}), 'plain objects must return true');
   });
-}
+};

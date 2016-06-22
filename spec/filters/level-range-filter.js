@@ -1,13 +1,15 @@
-import audit from '../../lib/levels/audit';
-import debug from '../../lib/levels/debug';
-import info from '../../lib/levels/info';
-import warn from '../../lib/levels/warn';
-import error from '../../lib/levels/error';
-import fatal from '../../lib/levels/fatal';
-import { LogEvent } from '../../lib/logger';
-import Filter, { FilterResults } from '../../lib/filters/filter';
+const audit = require('../../lib/levels/audit');
+const debug = require('../../lib/levels/debug');
+const info = require('../../lib/levels/info');
+const warn = require('../../lib/levels/warn');
+const error = require('../../lib/levels/error');
+const fatal = require('../../lib/levels/fatal');
+const LogEvent = require('../../lib/logger').LogEvent;
+const filter = require('../../lib/filters/filter');
+const Filter = filter.Filter;
+const FilterResults = filter.FilterResults;
 
-export default function (test, LevelRangeFilter) {
+module.exports = function (test, LevelRangeFilter) {
   const auditEvent = new LogEvent('test', audit, 'this is a test');
   const debugEvent = new LogEvent('test', debug, 'this is a test');
   const infoEvent = new LogEvent('test', info, 'this is a test');
@@ -282,7 +284,9 @@ export default function (test, LevelRangeFilter) {
     assert.comment('throws with');
     assert.throws(() => { filter.min = warn; }, 'updating the min level');
     assert.throws(() => { filter.max = error; }, 'updating the max level');
-    assert.throws(() => { filter.deny = true; }, 'updating the deny option');
+
+    filter.deny = false;
+    assert.equals(filter.deny, true, 'updating the deny option');
   });
 
   test('filter level-range-filter special cases', (assert) => {
@@ -293,4 +297,4 @@ export default function (test, LevelRangeFilter) {
     assert.throws(() => { filter.min = fatal; }, 'updating min to a level higher than max');
     assert.throws(() => { filter.max = audit; }, 'updating max to a level lower than min');
   });
-}
+};

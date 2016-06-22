@@ -1,10 +1,10 @@
-import Level from '../../lib/levels/level';
+const Level = require('../../lib/levels/level');
 
-export default function (test, off) {
-  test('off debug', (assert) => {
+module.exports = function (test, off) {
+  test('level off', (assert) => {
     assert.ok(off instanceof Level, 'off is a level');
     assert.equals(off.name, 'Off', 'name must match');
     assert.equals(off.weight, Number.MIN_SAFE_INTEGER, 'weight must match');
     assert.equals(off.style, void 0, 'style must be undefined');
   });
-}
+};

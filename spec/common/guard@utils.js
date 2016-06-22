@@ -1,4 +1,4 @@
-export default function (test, guard) {
+module.exports = function (test, guard) {
   test('guard function', (assert) => {
     assert.comment('does not throw with');
 
@@ -51,4 +51,4 @@ export default function (test, guard) {
     assert.equals(messageSingleParameter, 'AA test with replacements', 'using replace values');
     assert.equals(messageExceedingParameter, 'AA  test with replacements', 'using exceeding values');
   });
-}
+};

@@ -1,11 +1,11 @@
-import Level from '../../lib/levels/level';
-import { Foregrounds } from '../../lib/styles/style';
+const Level = require('../../lib/levels/level');
+const Foregrounds = require('../../lib/styles/style').Foregrounds;
 
-export default function (test, audit) {
+module.exports = function (test, audit) {
   test('level audit', (assert) => {
     assert.ok(audit instanceof Level, 'audit is a level');
     assert.equals(audit.name, 'Audit', 'name must match');
     assert.equals(audit.weight, 1, 'weight must match');
     assert.equals(audit.style.foreground, Foregrounds.WHITE, 'foreground must match');
   });
-}
+};

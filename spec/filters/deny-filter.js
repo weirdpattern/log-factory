@@ -1,6 +1,8 @@
-import Filter, { FilterResults } from '../../lib/filters/filter';
+const filter = require('../../lib/filters/filter');
+const Filter = filter.Filter;
+const FilterResults = filter.FilterResults;
 
-export default function (test, DenyFilter) {
+module.exports = function (test, DenyFilter) {
   const denyFilter = new DenyFilter();
 
   test('filter deny-filter', (assert) => {
@@ -8,4 +10,4 @@ export default function (test, DenyFilter) {
     assert.equals(denyFilter.filter, void 0, 'filter must be undefined');
     assert.equals(denyFilter.test(), FilterResults.DENY, 'filter must return DENY');
   });
-}
+};

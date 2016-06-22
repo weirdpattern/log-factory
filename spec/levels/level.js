@@ -1,6 +1,10 @@
-import Style, { Foregrounds, Backgrounds, Modifiers } from '../../lib/styles/style';
+const style = require('../../lib/styles/style');
+const Style = style.Style;
+const Foregrounds = style.Foregrounds;
+const Backgrounds = style.Backgrounds;
+const Modifiers = style.Modifiers;
 
-export default function (test, Level) {
+module.exports = function (test, Level) {
   test('object level', (assert) => {
     assert.comment('general structure');
     assert.ok(typeof Level === 'function', 'must be a function');
@@ -36,8 +40,10 @@ export default function (test, Level) {
     assert.equals(test.style.modifiers, Modifiers.NONE, 'modifiers matches');
 
     assert.comment('immutability');
-    assert.throws(() => { test.name = 'Other'; }, Error, 'name cannot be changed');
-    assert.throws(() => { test.weight = 100; }, Error, 'weight cannot be changed');
+    test.name = 'Other';
+    test.weight = 100;
+    assert.equals(test.name, 'Test', 'name cannot be changed');
+    assert.equals(test.weight, 5, 'weight matches');
     assert.doesNotThrow(() => { test.style = void 0; }, 'style can mutate');
 
     const level1 = new Level('Level 1', 1);
@@ -52,4 +58,4 @@ export default function (test, Level) {
     assert.equals(level1 + level10, 11, 'level1 + level10 is 11');
     assert.equals(level10 / level5, 2, 'level10 / level5 is 2');
   });
-}
+};
