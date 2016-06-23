@@ -1,3 +1,5 @@
+'use strict';
+
 const ExtensionPoints = require('../../lib/common/utils').ExtensionPoints;
 
 module.exports = function (test, extend) {

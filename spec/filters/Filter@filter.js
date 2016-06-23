@@ -1,3 +1,5 @@
+'use strict';
+
 const warn = require('../../lib/levels/warn');
 const fatal = require('../../lib/levels/fatal');
 const LevelFilter = require('../../lib/filters/level-filter');

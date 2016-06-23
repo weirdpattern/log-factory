@@ -1,3 +1,5 @@
+'use strict';
+
 const Level = require('../../lib/levels/level');
 const Foregrounds = require('../../lib/styles/style').Foregrounds;
 

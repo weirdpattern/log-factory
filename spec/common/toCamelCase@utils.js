@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (test, toCamelCase) {
   test('function toCamelCase', (assert) => {
     assert.comment('string - single character lowercase');

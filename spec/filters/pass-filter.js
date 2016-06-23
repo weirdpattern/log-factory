@@ -1,3 +1,5 @@
+'use strict';
+
 const filter = require('../../lib/filters/filter');
 const Filter = filter.Filter;
 const FilterResults = filter.FilterResults;

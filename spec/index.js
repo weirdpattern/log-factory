@@ -1,6 +1,4 @@
-/**
- * @module test
- */
+'use strict';
 
 const test = require('tape');
 const glob = require('glob');

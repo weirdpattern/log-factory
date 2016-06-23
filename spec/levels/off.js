@@ -1,3 +1,5 @@
+'use strict';
+
 const Level = require('../../lib/levels/level');
 
 module.exports = function (test, off) {

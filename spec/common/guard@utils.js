@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (test, guard) {
   test('guard function', (assert) => {
     assert.comment('does not throw with');

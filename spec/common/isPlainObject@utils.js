@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (test, isPlainObject) {
   test('function isPlainObject', (assert) => {
     assert.comment('undefined values');

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (test, flatten) {
   test('flatten function', (assert) => {
     const array3length = [[1], [2, 3, 4], [5, [6]]];

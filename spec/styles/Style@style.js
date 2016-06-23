@@ -1,3 +1,5 @@
+'use strict';
+
 const style = require('../../lib/styles/style');
 const Foregrounds = style.Foregrounds;
 const Backgrounds = style.Backgrounds;

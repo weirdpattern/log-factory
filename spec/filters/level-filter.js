@@ -1,3 +1,5 @@
+'use strict';
+
 const audit = require('../../lib/levels/audit');
 const debug = require('../../lib/levels/debug');
 const info = require('../../lib/levels/info');
