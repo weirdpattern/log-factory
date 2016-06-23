@@ -312,10 +312,8 @@ module.exports = function (test, LevelFilter) {
     assert.throws(() => filter.clearLevels(), 'clearing all levels');
     assert.throws(() => { filter.levels.push(debug); }, 'updating the levels variable');
 
-    filter.levels.length = 5;
-    filter.deny = false;
-    assert.equals(filter.levels.length, 0, 'updating the levels variable');
-    assert.equals(filter.deny, true, 'updating the deny option');
+    assert.throws(() => { filter.levels.length = 5; }, 'updating the levels variable');
+    assert.throws(() => { filter.deny = false; }, 'updating the deny option');
   });
 
   test('filter level-filter adding new levels', (assert) => {

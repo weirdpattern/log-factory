@@ -42,10 +42,8 @@ module.exports = function (test, Level) {
     assert.equals(test.style.modifiers, Modifiers.NONE, 'modifiers matches');
 
     assert.comment('immutability');
-    test.name = 'Other';
-    test.weight = 100;
-    assert.equals(test.name, 'Test', 'name cannot be changed');
-    assert.equals(test.weight, 5, 'weight matches');
+    assert.throws(() => { test.name = 'Others'; }, 'name cannot be changed');
+    assert.throws(() => { test.weight = 100; }, 'weight cannot be changed');
     assert.doesNotThrow(() => { test.style = void 0; }, 'style can mutate');
 
     const level1 = new Level('Level 1', 1);

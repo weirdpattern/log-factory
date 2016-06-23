@@ -286,9 +286,7 @@ module.exports = function (test, LevelRangeFilter) {
     assert.comment('throws with');
     assert.throws(() => { filter.min = warn; }, 'updating the min level');
     assert.throws(() => { filter.max = error; }, 'updating the max level');
-
-    filter.deny = false;
-    assert.equals(filter.deny, true, 'updating the deny option');
+    assert.throws(() => { filter.deny = false; }, 'updating the deny option');
   });
 
   test('filter level-range-filter special cases', (assert) => {

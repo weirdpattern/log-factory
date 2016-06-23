@@ -273,9 +273,7 @@ module.exports = function (test, LevelThresholdFilter) {
 
     assert.comment('throws with');
     assert.throws(() => { filter.level = warn; }, 'updating the level to warn');
-
-    filter.deny = false;
-    assert.equals(filter.deny, true, 'updating the deny option');
+    assert.throws(() => { filter.deny = false; }, 'updating the deny option');
   });
 
   test('filter level-threshold-filter special cases', (assert) => {
