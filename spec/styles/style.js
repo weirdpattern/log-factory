@@ -1,11 +1,10 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-const style = require('../../lib/styles/style');
-const Foregrounds = style.Foregrounds;
-const Backgrounds = style.Backgrounds;
-const Modifiers = style.Modifiers;
+import { Foregrounds, Backgrounds, Modifiers } from '../../lib/styles/style';
 
-module.exports = function (test, Style) {
+export default function (test, Style) {
   test('object style', (assert) => {
     assert.comment('general structure');
     assert.ok(typeof Style === 'function', 'must be a function');
@@ -48,4 +47,4 @@ module.exports = function (test, Style) {
     assert.comment('methods');
     assert.equals(style.apply('Test'), 'Test', 'should return the formatted text');
   });
-};
+}

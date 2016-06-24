@@ -1,3 +1,17 @@
 {
-  "presets": [ "es2015" ]
+  "presets": [ "es2015" ],
+  "env": {
+    "umd": {
+      "plugins": [
+        ["babel-plugin-transform-es2015-modules-umd", { "globals": { "es6-promise": "Promise" } }]
+      ]
+    },
+    "commonjs": {
+      "plugins": [
+        [
+          "transform-es2015-modules-commonjs", { "loose": true }
+        ]
+      ]
+    }
+  }
 }

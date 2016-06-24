@@ -1,6 +1,8 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-module.exports = function (test, toCamelCase) {
+export default function (test, toCamelCase) {
   test('function toCamelCase', (assert) => {
     assert.comment('string - single character lowercase');
     assert.equals(toCamelCase('a'), 'a', 'string must match');
@@ -60,4 +62,4 @@ module.exports = function (test, toCamelCase) {
     assert.equals(toCamelCase('test', '-one'), 'testOne', 'string must match');
     assert.equals(toCamelCase('test', '-on-e'), 'testOnE', 'string must match');
   });
-};
+}

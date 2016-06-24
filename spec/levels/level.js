@@ -1,12 +1,10 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-const style = require('../../lib/styles/style');
-const Style = style.Style;
-const Foregrounds = style.Foregrounds;
-const Backgrounds = style.Backgrounds;
-const Modifiers = style.Modifiers;
+import Style, { Foregrounds, Backgrounds, Modifiers } from '../../lib/styles/style';
 
-module.exports = function (test, Level) {
+export default function (test, Level) {
   test('object level', (assert) => {
     assert.comment('general structure');
     assert.ok(typeof Level === 'function', 'must be a function');
@@ -58,4 +56,4 @@ module.exports = function (test, Level) {
     assert.equals(level1 + level10, 11, 'level1 + level10 is 11');
     assert.equals(level10 / level5, 2, 'level10 / level5 is 2');
   });
-};
+}

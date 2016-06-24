@@ -6,29 +6,56 @@
   "description": "",
   "author": "Patricio Trevino <patricio@weirdpattern.com>",
 
-  "main": "index.js",
+  "main": "dist/node/index.js",
+  "jsnext:main": "lib/index.js",
 
   "engines": {
     "node": "^4.4.3"
   },
 
+  "files": [
+    "dist",
+    "lib"
+  ],
+
   "devDependencies": {
+    "rimraf": "*",
     "glob": "*",
     "snazzy": "*",
     "tape": "*",
     "tap-spec": "*",
     "semistandard": "*",
-    "istanbul": "*",
-    "coveralls": "*"
+    "coveralls": "*",
+    "uglify-js": "*",
+    "babel-cli": "*",
+    "babel-core": "*",
+    "babel-eslint": "*",
+    "babel-istanbul": "*",
+    "babel-preset-es2015": "*",
+    "babel-plugin-transform-es2015-modules-commonjs": "*"
   },
 
   "scripts": {
+    "clean": "npm run clean:coverage & npm run clean:dist",
+    "clean:coverage": "rimraf coverage",
+    "clean:dist": "rimraf dist",
+    "clean:dist:umd": "rimraf dist/umd",
+    "clean:dist:node": "rimraf dist/node",
+    "clean:dist:modern": "rimraf dist/modern",
     "lint": "semistandard --verbose | snazzy",
-    "specs": "tape ./spec/index.js | tap-spec",
+    "specs": "babel-node node_modules/.bin/tape ./spec/index.js | tap-spec",
     "test": "npm run lint && npm run specs",
-    "coverage": "istanbul cover -x index.js -x spec/index.js tape -- spec/index.js",
+    "coverage": "babel-node node_modules/.bin/babel-istanbul cover --include-all-sources -x index.js -x spec/index.js tape -- spec/index.js",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "review-coverage": "open ./coverage/lcov-report/index.html",
-    "validate": "npm run test && npm run coverage >/dev/null && npm run review-coverage"
+    "validate": "npm run test && npm run coverage >/dev/null && npm run review-coverage",
+    "build": "npm run clean && npm run build:umd & npm run build:umd:min & npm run build:node",
+    "build:umd": "export BABEL_ENV=umd || set BABEL_ENV=umd && mkdir -p dist/umd && babel --out-file dist/umd/logwiz.js lib",
+    "build:umd:min": "export BABEL_ENV=umd || set BABEL_ENV=umd && mkdir -p dist/umd && babel --no-comments --out-file dist/umd/logwiz.min.js lib && uglifyjs dist/umd/logwiz.min.js --mange --compress --mangle-props true --output dist/umd/logwiz.min.js",
+    "build:node": "export BABEL_ENV=commonjs || set BABEL_ENV=commonjs && mkdir -p dist/node && babel --out-dir dist/node lib"
+  },
+
+  "semistandard": {
+    "parser": "babel-eslint"
   }
 }

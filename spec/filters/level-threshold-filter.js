@@ -1,17 +1,17 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-const audit = require('../../lib/levels/audit');
-const debug = require('../../lib/levels/debug');
-const info = require('../../lib/levels/info');
-const warn = require('../../lib/levels/warn');
-const error = require('../../lib/levels/error');
-const fatal = require('../../lib/levels/fatal');
-const LogEvent = require('../../lib/logger').LogEvent;
-const filter = require('../../lib/filters/filter');
-const Filter = filter.Filter;
-const FilterResults = filter.FilterResults;
+import audit from '../../lib/levels/audit';
+import debug from '../../lib/levels/debug';
+import info from '../../lib/levels/info';
+import warn from '../../lib/levels/warn';
+import error from '../../lib/levels/error';
+import fatal from '../../lib/levels/fatal';
+import { LogEvent } from '../../lib/logger';
+import Filter, { FilterResults } from '../../lib/filters/filter';
 
-module.exports = function (test, LevelThresholdFilter) {
+export default function (test, LevelThresholdFilter) {
   const auditEvent = new LogEvent('test', audit, 'this is a test');
   const debugEvent = new LogEvent('test', debug, 'this is a test');
   const infoEvent = new LogEvent('test', info, 'this is a test');
@@ -282,4 +282,4 @@ module.exports = function (test, LevelThresholdFilter) {
     assert.comment('throws with');
     assert.throws(() => { filter.level = 1; }, 'updating min with an invalid level');
   });
-};
+}

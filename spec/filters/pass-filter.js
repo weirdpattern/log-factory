@@ -1,10 +1,10 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-const filter = require('../../lib/filters/filter');
-const Filter = filter.Filter;
-const FilterResults = filter.FilterResults;
+import Filter, { FilterResults } from '../../lib/filters/filter';
 
-module.exports = function (test, PassFilter) {
+export default function (test, PassFilter) {
   const passFilter = new PassFilter();
 
   test('filter pass-filter', (assert) => {
@@ -12,4 +12,4 @@ module.exports = function (test, PassFilter) {
     assert.equals(passFilter.filter, void 0, 'filter must be undefined');
     assert.equals(passFilter.test(), FilterResults.PASS, 'filter must return PASS');
   });
-};
+}

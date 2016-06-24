@@ -1,10 +1,10 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-const filter = require('../../lib/filters/filter');
-const Filter = filter.Filter;
-const FilterResults = filter.FilterResults;
+import Filter, { FilterResults } from '../../lib/filters/filter';
 
-module.exports = function (test, DenyFilter) {
+export default function (test, DenyFilter) {
   const denyFilter = new DenyFilter();
 
   test('filter deny-filter', (assert) => {
@@ -12,4 +12,4 @@ module.exports = function (test, DenyFilter) {
     assert.equals(denyFilter.filter, void 0, 'filter must be undefined');
     assert.equals(denyFilter.test(), FilterResults.DENY, 'filter must return DENY');
   });
-};
+}

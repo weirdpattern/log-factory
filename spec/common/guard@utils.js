@@ -1,6 +1,8 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-module.exports = function (test, guard) {
+export default function (test, guard) {
   test('guard function', (assert) => {
     assert.comment('does not throw with');
 
@@ -53,4 +55,4 @@ module.exports = function (test, guard) {
     assert.equals(messageSingleParameter, 'AA test with replacements', 'using replace values');
     assert.equals(messageExceedingParameter, 'AA  test with replacements', 'using exceeding values');
   });
-};
+}

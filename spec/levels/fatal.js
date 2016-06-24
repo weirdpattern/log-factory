@@ -1,12 +1,11 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-const Level = require('../../lib/levels/level');
-const style = require('../../lib/styles/style');
-const Foregrounds = style.Foregrounds;
-const Backgrounds = style.Backgrounds;
-const Modifiers = style.Modifiers;
+import Level from '../../lib/levels/level';
+import { Foregrounds, Backgrounds, Modifiers } from '../../lib/styles/style';
 
-module.exports = function (test, fatal) {
+export default function (test, fatal) {
   test('level fatal', (assert) => {
     assert.ok(fatal instanceof Level, 'fatal is a level');
     assert.equals(fatal.name, 'Fatal', 'name must match');
@@ -15,4 +14,4 @@ module.exports = function (test, fatal) {
     assert.equals(fatal.style.background, Backgrounds.BLACK, 'background must match');
     assert.equals(fatal.style.modifiers, Modifiers.BOLD, 'modifier must match');
   });
-};
+}

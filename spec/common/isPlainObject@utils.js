@@ -1,6 +1,8 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-module.exports = function (test, isPlainObject) {
+export default function (test, isPlainObject) {
   test('function isPlainObject', (assert) => {
     assert.comment('undefined values');
     assert.notOk(isPlainObject(void 0), 'undefined values must return false');
@@ -31,4 +33,4 @@ module.exports = function (test, isPlainObject) {
     assert.comment('{} values');
     assert.ok(isPlainObject({}), 'plain objects must return true');
   });
-};
+}

@@ -1,8 +1,10 @@
-'use strict';
+/**
+ * @author Patricio Trevino
+ */
 
-const ExtensionPoints = require('../../lib/common/utils').ExtensionPoints;
+import { ExtensionPoints } from '../../lib/common/utils';
 
-module.exports = function (test, extend) {
+export default function (test, extend) {
   test('function extend', (assert) => {
     const closedObject = Object.preventExtensions({});
     const composeObject = Object.create(Object);
@@ -122,4 +124,4 @@ module.exports = function (test, extend) {
     assert.notOk(enumerableAndWritableObject.configurable, 'configurable must be false');
     assert.equals(enumerableAndWritableObject.value, 1, 'value must be 1');
   });
-};
+}
