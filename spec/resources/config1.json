@@ -1,0 +1,12 @@
+{
+  "level": "debug",
+  "levels": {
+    "debug-medium": {
+      "weight": 1050,
+      "style": {
+        "foreground": "gray",
+        "modifiers": "bold"
+      }
+    }
+  }
+}

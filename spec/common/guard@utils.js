@@ -23,6 +23,7 @@ export default function (test, guard) {
     assert.throws(() => guard(TypeError, false, 'passing false'), TypeError, 'well-known errors');
 
     function MyError () {}
+
     MyError.prototype = Object.create(Error.prototype);
     MyError.prototype.constructor = MyError;
 

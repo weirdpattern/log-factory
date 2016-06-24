@@ -26,8 +26,14 @@ function executor (title, callback) {
   });
 }
 
+// check if pattern was provided
+let pattern = 'spec/**/*.js';
+if (process.argv.indexOf('--pattern') > -1) {
+  pattern = process.argv[process.argv.indexOf('--pattern') + 1];
+}
+
 // get all spec files and parse them
-glob('spec/**/*.js', { 'realpath': true, 'ignore': 'spec/index.js' }, (err, files) => {
+glob(pattern, { 'realpath': true, 'ignore': 'spec/index.js' }, (err, files) => {
   if (err) {
     console.error(err);
     process.exit(1);
@@ -51,13 +57,13 @@ glob('spec/**/*.js', { 'realpath': true, 'ignore': 'spec/index.js' }, (err, file
           __dirname,
           path.dirname(filename)
         ),
-        segments.length === 1 ? segments[0] : segments[1]
+        segments.length === 1 ? segments[ 0 ] : segments[ 1 ]
       )
     );
 
     library = require(library);
     if (segments.length === 2) {
-      suite(executor, library[segments[0]]);
+      suite(executor, library[ segments[ 0 ] ]);
     } else if (segments.length === 1 && hasOwnProperty.call(library, 'default')) {
       suite(executor, library.default);
     } else {

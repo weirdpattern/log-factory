@@ -343,14 +343,14 @@ export default function (test, LevelFilter) {
 
     assert.comment('does not throw with');
     assert.equals(filter.levels.length, 6, 'levels length is 6');
-    assert.doesNotThrow(() => filter.removeLevel([1, audit]),
-                  'removing non strings or levels is not allowed, but will not fail if at least one level');
+    assert.doesNotThrow(() => filter.removeLevel([ 1, audit ]),
+      'removing non strings or levels is not allowed, but will not fail if at least one level');
     assert.equals(filter.levels.length, 5, 'levels length is 5');
-    assert.doesNotThrow(() => filter.removeLevel([1, 'debug']),
+    assert.doesNotThrow(() => filter.removeLevel([ 1, 'debug' ]),
       'removing non strings or levels is not allowed, but will not fail if at least one string');
     assert.equals(filter.levels.length, 4, 'levels length is 4');
 
-    filter.addLevel([audit, debug]);
+    filter.addLevel([ audit, debug ]);
 
     assert.comment('removing a single level by level');
     assert.equals(filter.levels.length, 6, 'levels length is 6');

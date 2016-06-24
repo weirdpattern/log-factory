@@ -20,28 +20,28 @@ export default function (test, Style) {
     assert.comment('setting arguments');
     assert.equals(new Style(Foregrounds.GREEN).foreground, Foregrounds.GREEN, 'foreground is GREEN');
     assert.equals(new Style(Foregrounds.GREEN, Backgrounds.MAGENTA).background, Backgrounds.MAGENTA,
-                  'background is MAGENTA');
+      'background is MAGENTA');
     assert.equals(new Style(Foregrounds.GREEN, Backgrounds.MAGENTA, Modifiers.INVERSE).modifiers, Modifiers.INVERSE,
-                  'modifiers is INVERSE');
+      'modifiers is INVERSE');
 
     assert.comment('multi modifiers argument');
     assert.equals(new Style(null, null, Modifiers.INVERSE | Modifiers.BOLD).modifiers & Modifiers.INVERSE,
-                  Modifiers.INVERSE, 'modifiers is INVERSE');
+      Modifiers.INVERSE, 'modifiers is INVERSE');
     assert.equals(new Style(null, null, Modifiers.INVERSE | Modifiers.BOLD).modifiers & Modifiers.BOLD,
-                  Modifiers.BOLD, 'modifiers is BOLD');
+      Modifiers.BOLD, 'modifiers is BOLD');
     assert.equals(new Style(null, null, [ Modifiers.INVERSE, Modifiers.BOLD ]).modifiers & Modifiers.INVERSE,
-                  Modifiers.INVERSE, 'modifiers is INVERSE');
+      Modifiers.INVERSE, 'modifiers is INVERSE');
     assert.equals(new Style(null, null, [ Modifiers.INVERSE, Modifiers.BOLD ]).modifiers & Modifiers.BOLD,
-                  Modifiers.BOLD, 'modifiers is BOLD');
+      Modifiers.BOLD, 'modifiers is BOLD');
 
     assert.comment('string arguments');
     assert.equals(new Style('MAGENTA').foreground, Foregrounds.MAGENTA, 'foreground is MAGENTA');
     assert.equals(new Style('MAGENTA', 'RED').background, Backgrounds.RED, 'background is RED');
     assert.equals(new Style('MAGENTA', 'RED', 'DIM').modifiers, Modifiers.DIM, 'modifiers is DIM');
     assert.equals(new Style('MAGENTA', 'RED', [ 'DIM', 'BOLD' ]).modifiers & Modifiers.DIM, Modifiers.DIM,
-                  'modifiers is DIM');
+      'modifiers is DIM');
     assert.equals(new Style('MAGENTA', 'RED', [ 'DIM', 'BOLD' ]).modifiers & Modifiers.BOLD, Modifiers.BOLD,
-                  'modifiers is BOLD');
+      'modifiers is BOLD');
 
     const style = new Style();
     assert.comment('methods');

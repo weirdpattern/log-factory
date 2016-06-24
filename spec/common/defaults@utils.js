@@ -40,25 +40,25 @@ export default function (test, defaults) {
     };
 
     let withArrays = {
-      'one': [1, 2, 3, 4],
-      'two': ['a', 'b'],
+      'one': [ 1, 2, 3, 4 ],
+      'two': [ 'a', 'b' ],
       'three': {
-        'threea': [1],
-        'threeb': ['a', 2, 'c']
+        'threea': [ 1 ],
+        'threeb': [ 'a', 2, 'c' ]
       }
     };
 
     let withArraysAndObjects = {
-      'one': [1, 2, 3, 4, 5, 6],
-      'two': ['a', 'b'],
+      'one': [ 1, 2, 3, 4, 5, 6 ],
+      'two': [ 'a', 'b' ],
       'three': {
-        'threea': [1],
-        'threeb': ['a', 2, {
-          'threeba': [1],
+        'threea': [ 1 ],
+        'threeb': [ 'a', 2, {
+          'threeba': [ 1 ],
           'threebb': {
             'threebba': 1
           }
-        }]
+        } ]
       }
     };
 
@@ -93,11 +93,11 @@ export default function (test, defaults) {
 
     target = defaults({}, withArrays, withArraysAndObjects);
     assert.deepEquals(target, {
-      'one': [1, 2, 3, 4, 5, 6],
-      'two': ['a', 'b'],
+      'one': [ 1, 2, 3, 4, 5, 6 ],
+      'two': [ 'a', 'b' ],
       'three': {
-        'threea': [1],
-        'threeb': ['a', 2, 'c']
+        'threea': [ 1 ],
+        'threeb': [ 'a', 2, 'c' ]
       }
     });
 
@@ -116,15 +116,15 @@ export default function (test, defaults) {
         'oneb': 2,
         'onec': 3
       },
-      'two': ['a', 'b'],
+      'two': [ 'a', 'b' ],
       'three': {
-        'threea': [1],
-        'threeb': ['a', 2, {
-          'threeba': [1],
+        'threea': [ 1 ],
+        'threeb': [ 'a', 2, {
+          'threeba': [ 1 ],
           'threebb': {
             'threebba': 1
           }
-        }],
+        } ],
         'twoa': 1,
         'twob': {
           'twoba': 1,

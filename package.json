@@ -23,8 +23,8 @@
     "glob": "*",
     "snazzy": "*",
     "tape": "*",
-    "tap-spec": "*",
     "semistandard": "*",
+    "semistandard-format": "*",
     "coveralls": "*",
     "uglify-js": "*",
     "babel-cli": "*",
@@ -32,6 +32,7 @@
     "babel-eslint": "*",
     "babel-istanbul": "*",
     "babel-preset-es2015": "*",
+    "babel-plugin-transform-es2015-modules-umd": "*",
     "babel-plugin-transform-es2015-modules-commonjs": "*"
   },
 
@@ -43,16 +44,16 @@
     "clean:dist:node": "rimraf dist/node",
     "clean:dist:modern": "rimraf dist/modern",
     "lint": "semistandard --verbose | snazzy",
-    "specs": "babel-node node_modules/.bin/tape ./spec/index.js | tap-spec",
+    "specs": "babel-node ./spec/index.js",
     "test": "npm run lint && npm run specs",
-    "coverage": "babel-node node_modules/.bin/babel-istanbul cover --include-all-sources -x index.js -x spec/index.js tape -- spec/index.js",
+    "coverage": "babel-node node_modules/.bin/babel-istanbul cover --include-all-sources -x spec/index.js -x **/dist/** tape -- spec/index.js",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "review-coverage": "open ./coverage/lcov-report/index.html",
     "validate": "npm run test && npm run coverage >/dev/null && npm run review-coverage",
     "build": "npm run clean && npm run build:umd & npm run build:umd:min & npm run build:node",
-    "build:umd": "export BABEL_ENV=umd || set BABEL_ENV=umd && mkdir -p dist/umd && babel --out-file dist/umd/logwiz.js lib",
+    "build:umd": "export BABEL_ENV=umd || set BABEL_ENV=umd && mkdir -p dist/umd && babel --out-file dist/umd/logwiz.js lib && cd dist/umd && semistandard-format -w",
     "build:umd:min": "export BABEL_ENV=umd || set BABEL_ENV=umd && mkdir -p dist/umd && babel --no-comments --out-file dist/umd/logwiz.min.js lib && uglifyjs dist/umd/logwiz.min.js --mange --compress --mangle-props true --output dist/umd/logwiz.min.js",
-    "build:node": "export BABEL_ENV=commonjs || set BABEL_ENV=commonjs && mkdir -p dist/node && babel --out-dir dist/node lib"
+    "build:node": "export BABEL_ENV=commonjs || set BABEL_ENV=commonjs && mkdir -p dist/node && babel --out-dir dist/node lib && cd dist/node && semistandard-format -w"
   },
 
   "semistandard": {
