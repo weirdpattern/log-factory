@@ -43,8 +43,28 @@ export default function (test, Style) {
     assert.equals(new Style('MAGENTA', 'RED', [ 'DIM', 'BOLD' ]).modifiers & Modifiers.BOLD, Modifiers.BOLD,
       'modifiers is BOLD');
 
-    const style = new Style();
-    assert.comment('methods');
-    assert.equals(style.apply('Test'), 'Test', 'should return the formatted text');
+    const foregroundStyle = Style.create({ 'foreground': Foregrounds.MAGENTA });
+    const backgroundStyle = Style.create({ 'background': Backgrounds.RED });
+    const modifierStyle = Style.create({ 'modifiers': Modifiers.STRIKE });
+    const allStyle = Style.create({
+      'foreground': Foregrounds.BLUE,
+      'background': Backgrounds.MAGENTA,
+      'modifiers': Modifiers.DIM | Modifiers.INVERSE
+    });
+
+    assert.comment('creating styles');
+    assert.equals(foregroundStyle.foreground, Foregrounds.MAGENTA, 'foregrounds must match');
+    assert.equals(backgroundStyle.background, Backgrounds.RED, 'backgrounds must match');
+    assert.equals(modifierStyle.modifiers, Modifiers.STRIKE, 'modifiers must match');
+    assert.equals(allStyle.foreground, Foregrounds.BLUE, 'foregrounds must match');
+    assert.equals(allStyle.background, Backgrounds.MAGENTA, 'backgrounds must match');
+    assert.equals(allStyle.modifiers, Modifiers.DIM | Modifiers.INVERSE, 'modifiers must match');
+
+    const emptyStyle = Style.create();
+
+    assert.comment('creating empty styles');
+    assert.equals(emptyStyle.foreground, Foregrounds.WHITE, 'foreground must match');
+    assert.equals(emptyStyle.background, Backgrounds.BLACK, 'background must match');
+    assert.equals(emptyStyle.modifiers, Modifiers.NONE, 'modifiers must match');
   });
 }

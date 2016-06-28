@@ -89,7 +89,7 @@ export default function (test, defaults) {
         'twoa': 1,
         'twob': 2
       }
-    }, 'target and oneLevel must match');
+    }, 'target and oneLevel+twoLevels must match');
 
     target = defaults({}, withArrays, withArraysAndObjects);
     assert.deepEquals(target, {
@@ -99,7 +99,7 @@ export default function (test, defaults) {
         'threea': [ 1 ],
         'threeb': [ 'a', 2, 'c' ]
       }
-    });
+    }, 'target and withArrays+withArraysAndObjects must match');
 
     target = defaults({}, threeLevels, withArraysAndObjects);
     assert.deepEquals(target, {
@@ -131,6 +131,6 @@ export default function (test, defaults) {
           'twobb': 2
         }
       }
-    });
+    }, 'target and threeLevels+withArraysAndObjects must match');
   });
 }

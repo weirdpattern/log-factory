@@ -8,7 +8,7 @@ import info from '../../lib/levels/info';
 import warn from '../../lib/levels/warn';
 import error from '../../lib/levels/error';
 import fatal from '../../lib/levels/fatal';
-import { LogEvent } from '../../lib/logger';
+import { LogEvent } from '../../lib/loggers/logger';
 import Filter, { FilterResults } from '../../lib/filters/filter';
 
 export default function (test, LevelFilter) {
@@ -20,21 +20,21 @@ export default function (test, LevelFilter) {
   const fatalEvent = new LogEvent('test', fatal, 'this is a test');
 
   test('filter level-filter', (assert) => {
-    const filter = new LevelFilter(audit);
+    const filter = new LevelFilter({ 'levels': audit });
 
-    assert.throws(() => new LevelFilter({}), 'no level type');
+    assert.throws(() => new LevelFilter({ 'levels': {} }), 'no level type');
     assert.throws(() => filter.test(void 0), 'undefined events');
     assert.throws(() => filter.test(null), 'null events');
   });
 
   test('filter level-filter no options', (assert) => {
     const filter = new LevelFilter();
-    const filterAudit = new LevelFilter(audit);
-    const filterDebug = new LevelFilter(debug);
-    const filterInfo = new LevelFilter(info);
-    const filterWarn = new LevelFilter(warn);
-    const filterError = new LevelFilter(error);
-    const filterFatal = new LevelFilter(fatal);
+    const filterAudit = new LevelFilter({ 'levels': audit });
+    const filterDebug = new LevelFilter({ 'levels': debug });
+    const filterInfo = new LevelFilter({ 'levels': info });
+    const filterWarn = new LevelFilter({ 'levels': warn });
+    const filterError = new LevelFilter({ 'levels': error });
+    const filterFatal = new LevelFilter({ 'levels': fatal });
 
     assert.comment('with no levels');
     assert.ok(filter instanceof Filter, 'audit level-filter is a filter');
@@ -97,13 +97,13 @@ export default function (test, LevelFilter) {
   });
 
   test('filter level-filter deny:false', (assert) => {
-    const filterPass = new LevelFilter(null, { 'deny': false });
-    const filterAuditPass = new LevelFilter(audit, { 'deny': false });
-    const filterDebugPass = new LevelFilter(debug, { 'deny': false });
-    const filterInfoPass = new LevelFilter(info, { 'deny': false });
-    const filterWarnPass = new LevelFilter(warn, { 'deny': false });
-    const filterErrorPass = new LevelFilter(error, { 'deny': false });
-    const filterFatalPass = new LevelFilter(fatal, { 'deny': false });
+    const filterPass = new LevelFilter({ 'levels': null, 'deny': false });
+    const filterAuditPass = new LevelFilter({ 'levels': audit, 'deny': false });
+    const filterDebugPass = new LevelFilter({ 'levels': debug, 'deny': false });
+    const filterInfoPass = new LevelFilter({ 'levels': info, 'deny': false });
+    const filterWarnPass = new LevelFilter({ 'levels': warn, 'deny': false });
+    const filterErrorPass = new LevelFilter({ 'levels': error, 'deny': false });
+    const filterFatalPass = new LevelFilter({ 'levels': fatal, 'deny': false });
 
     assert.comment('with no levels');
     assert.ok(filterPass instanceof Filter, 'audit level-filter is a filter');
@@ -166,13 +166,13 @@ export default function (test, LevelFilter) {
   });
 
   test('filter level-filter deny:true', (assert) => {
-    const filterPass = new LevelFilter(null, { 'deny': true });
-    const filterAuditPass = new LevelFilter(audit, { 'deny': true });
-    const filterDebugPass = new LevelFilter(debug, { 'deny': true });
-    const filterInfoPass = new LevelFilter(info, { 'deny': true });
-    const filterWarnPass = new LevelFilter(warn, { 'deny': true });
-    const filterErrorPass = new LevelFilter(error, { 'deny': true });
-    const filterFatalPass = new LevelFilter(fatal, { 'deny': true });
+    const filterPass = new LevelFilter({ 'levels': null, 'deny': true });
+    const filterAuditPass = new LevelFilter({ 'levels': audit, 'deny': true });
+    const filterDebugPass = new LevelFilter({ 'levels': debug, 'deny': true });
+    const filterInfoPass = new LevelFilter({ 'levels': info, 'deny': true });
+    const filterWarnPass = new LevelFilter({ 'levels': warn, 'deny': true });
+    const filterErrorPass = new LevelFilter({ 'levels': error, 'deny': true });
+    const filterFatalPass = new LevelFilter({ 'levels': fatal, 'deny': true });
 
     assert.comment('with no levels');
     assert.ok(filterPass instanceof Filter, 'audit level-filter is a filter');
@@ -233,7 +233,7 @@ export default function (test, LevelFilter) {
   });
 
   test('filter level-filter locked:false', (assert) => {
-    const filter = new LevelFilter(null, { 'locked': false });
+    const filter = new LevelFilter({ 'levels': null, 'locked': false });
 
     assert.comment('with no levels');
     assert.ok(filter instanceof Filter, 'audit level-filter is a filter');
@@ -295,7 +295,7 @@ export default function (test, LevelFilter) {
   });
 
   test('filter level-filter locked:true', (assert) => {
-    const filter = new LevelFilter(null, { 'locked': true });
+    const filter = new LevelFilter({ 'levels': null, 'locked': true });
 
     assert.comment('with no levels');
     assert.ok(filter instanceof Filter, 'audit level-filter is a filter');
@@ -317,7 +317,7 @@ export default function (test, LevelFilter) {
   });
 
   test('filter level-filter adding new levels', (assert) => {
-    const filter = new LevelFilter(null);
+    const filter = new LevelFilter({ 'levels': null });
 
     assert.comment('adding a single level');
     assert.equals(filter.levels.length, 0, 'levels length is 0');
@@ -334,7 +334,7 @@ export default function (test, LevelFilter) {
   });
 
   test('filter level-filter removing levels', (assert) => {
-    const filter = new LevelFilter([ audit, debug, info, warn, error, fatal ]);
+    const filter = new LevelFilter({ 'levels': [ audit, debug, info, warn, error, fatal ] });
 
     assert.comment('throws with');
     assert.equals(filter.levels.length, 6, 'levels length is 6');
@@ -371,7 +371,7 @@ export default function (test, LevelFilter) {
   });
 
   test('filter level-filter removing levels', (assert) => {
-    const filter = new LevelFilter([ audit, debug, info, warn, error, fatal ]);
+    const filter = new LevelFilter({ 'levels': [ audit, debug, info, warn, error, fatal ] });
 
     assert.comment('clearing all levels');
     assert.equals(filter.levels.length, 6, 'levels length is 6');

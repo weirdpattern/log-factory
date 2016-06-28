@@ -8,7 +8,7 @@ import info from '../../lib/levels/info';
 import warn from '../../lib/levels/warn';
 import error from '../../lib/levels/error';
 import fatal from '../../lib/levels/fatal';
-import { LogEvent } from '../../lib/logger';
+import { LogEvent } from '../../lib/loggers/logger';
 import Filter, { FilterResults } from '../../lib/filters/filter';
 
 export default function (test, LevelThresholdFilter) {
@@ -20,23 +20,23 @@ export default function (test, LevelThresholdFilter) {
   const fatalEvent = new LogEvent('test', fatal, 'this is a test');
 
   test('filter level-threshold-filter', (assert) => {
-    const filter = new LevelThresholdFilter(audit);
+    const filter = new LevelThresholdFilter({ 'level': audit });
 
     assert.comment('throws with');
-    assert.throws(() => new LevelThresholdFilter(void 0), 'undefined level');
-    assert.throws(() => new LevelThresholdFilter(null), 'null level');
-    assert.throws(() => new LevelThresholdFilter({}), 'no level type');
+    assert.throws(() => new LevelThresholdFilter({ 'level': void 0 }), 'undefined level');
+    assert.throws(() => new LevelThresholdFilter({ 'level': null }), 'null level');
+    assert.throws(() => new LevelThresholdFilter({ 'level': {} }), 'no level type');
     assert.throws(() => filter.test(void 0), 'undefined events');
     assert.throws(() => filter.test(null), 'null events');
   });
 
   test('filter level-threshold-filter no options', (assert) => {
-    const auditLevel = new LevelThresholdFilter(audit);
-    const debugLevel = new LevelThresholdFilter(debug);
-    const infoLevel = new LevelThresholdFilter(info);
-    const warnLevel = new LevelThresholdFilter(warn);
-    const errorLevel = new LevelThresholdFilter(error);
-    const fatalLevel = new LevelThresholdFilter(fatal);
+    const auditLevel = new LevelThresholdFilter({ 'level': audit });
+    const debugLevel = new LevelThresholdFilter({ 'level': debug });
+    const infoLevel = new LevelThresholdFilter({ 'level': info });
+    const warnLevel = new LevelThresholdFilter({ 'level': warn });
+    const errorLevel = new LevelThresholdFilter({ 'level': error });
+    const fatalLevel = new LevelThresholdFilter({ 'level': fatal });
 
     assert.comment('audit level and below');
     assert.ok(auditLevel instanceof Filter, 'audit level-threshold-filter is a filter');
@@ -100,12 +100,12 @@ export default function (test, LevelThresholdFilter) {
   });
 
   test('filter level-threshold-filter deny:false', (assert) => {
-    const auditLevelPass = new LevelThresholdFilter(audit, { 'deny': false });
-    const debugLevelPass = new LevelThresholdFilter(debug, { 'deny': false });
-    const infoLevelPass = new LevelThresholdFilter(info, { 'deny': false });
-    const warnLevelPass = new LevelThresholdFilter(warn, { 'deny': false });
-    const errorLevelPass = new LevelThresholdFilter(error, { 'deny': false });
-    const fatalLevelPass = new LevelThresholdFilter(fatal, { 'deny': false });
+    const auditLevelPass = new LevelThresholdFilter({ 'level': audit, 'deny': false });
+    const debugLevelPass = new LevelThresholdFilter({ 'level': debug, 'deny': false });
+    const infoLevelPass = new LevelThresholdFilter({ 'level': info, 'deny': false });
+    const warnLevelPass = new LevelThresholdFilter({ 'level': warn, 'deny': false });
+    const errorLevelPass = new LevelThresholdFilter({ 'level': error, 'deny': false });
+    const fatalLevelPass = new LevelThresholdFilter({ 'level': fatal, 'deny': false });
 
     assert.comment('audit level and below');
     assert.ok(auditLevelPass instanceof Filter, 'audit level-threshold-filter is a filter');
@@ -169,12 +169,12 @@ export default function (test, LevelThresholdFilter) {
   });
 
   test('filter level-threshold-filter deny:true', (assert) => {
-    const auditLevelDeny = new LevelThresholdFilter(audit, { 'deny': true });
-    const debugLevelDeny = new LevelThresholdFilter(debug, { 'deny': true });
-    const infoLevelDeny = new LevelThresholdFilter(info, { 'deny': true });
-    const warnLevelDeny = new LevelThresholdFilter(warn, { 'deny': true });
-    const errorLevelDeny = new LevelThresholdFilter(error, { 'deny': true });
-    const fatalLevelDeny = new LevelThresholdFilter(fatal, { 'deny': true });
+    const auditLevelDeny = new LevelThresholdFilter({ 'level': audit, 'deny': true });
+    const debugLevelDeny = new LevelThresholdFilter({ 'level': debug, 'deny': true });
+    const infoLevelDeny = new LevelThresholdFilter({ 'level': info, 'deny': true });
+    const warnLevelDeny = new LevelThresholdFilter({ 'level': warn, 'deny': true });
+    const errorLevelDeny = new LevelThresholdFilter({ 'level': error, 'deny': true });
+    const fatalLevelDeny = new LevelThresholdFilter({ 'level': fatal, 'deny': true });
 
     assert.comment('audit level and below');
     assert.ok(auditLevelDeny instanceof Filter, 'audit level-threshold-filter is a filter');
@@ -238,7 +238,7 @@ export default function (test, LevelThresholdFilter) {
   });
 
   test('filter level-threshold-filter locked:false', (assert) => {
-    const filter = new LevelThresholdFilter(audit, { 'locked': false });
+    const filter = new LevelThresholdFilter({ 'level': audit, 'locked': false });
 
     assert.comment('audit level and below');
     assert.equals(filter.test(auditEvent), FilterResults.ALLOW, 'audit events must be allowed');
@@ -261,7 +261,7 @@ export default function (test, LevelThresholdFilter) {
   });
 
   test('filter level-threshold-filter locked:true', (assert) => {
-    const filter = new LevelThresholdFilter(audit, { 'locked': true });
+    const filter = new LevelThresholdFilter({ 'level': audit, 'locked': true });
 
     assert.comment('audit level and below');
     assert.equals(filter.test(auditEvent), FilterResults.ALLOW, 'audit events must be allowed');
@@ -277,7 +277,7 @@ export default function (test, LevelThresholdFilter) {
   });
 
   test('filter level-threshold-filter special cases', (assert) => {
-    const filter = new LevelThresholdFilter(audit, { 'locked': true });
+    const filter = new LevelThresholdFilter({ 'level': audit, 'locked': true });
 
     assert.comment('throws with');
     assert.throws(() => { filter.level = 1; }, 'updating min with an invalid level');

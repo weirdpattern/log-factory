@@ -55,5 +55,28 @@ export default function (test, Level) {
     assert.equals(level10 * level5, 50, 'level10 * level5 is 50');
     assert.equals(level1 + level10, 11, 'level1 + level10 is 11');
     assert.equals(level10 / level5, 2, 'level10 / level5 is 2');
+
+    const levelWeightTest = Level.create('test', 100);
+    const levelObjectTest = Level.create('test', { 'weight': 100 });
+    const levelStyleObjectTest = Level.create('test', { 'weight': 100, 'style': { 'foreground': Foregrounds.BLACK } });
+
+    assert.comment('creating levels');
+    assert.throws(() => Level.create(), 'a name is required');
+    assert.throws(() => Level.create('test'), 'a weight is required');
+    assert.throws(() => Level.create('test', {}), 'a weight is required when sending an object');
+    assert.throws(() => Level.create('test', 'a'), 'weight must be an integer');
+    assert.throws(() => Level.create('test', { 'weight': 'a' }), 'weight must be an integer');
+
+    assert.equals(levelWeightTest.name, 'test', 'name must match');
+    assert.equals(levelWeightTest.weight, 100, 'weight must match');
+    assert.equals(levelWeightTest.style, void 0, 'style must be undefined');
+
+    assert.equals(levelObjectTest.name, 'test', 'name must match');
+    assert.equals(levelObjectTest.weight, 100, 'weight must match');
+    assert.equals(levelObjectTest.style, null, 'style must be undefined');
+
+    assert.equals(levelStyleObjectTest.name, 'test', 'name must match');
+    assert.equals(levelStyleObjectTest.weight, 100, 'weight must match');
+    assert.equals(levelStyleObjectTest.style.foreground, Foregrounds.BLACK, 'style must match');
   });
 }

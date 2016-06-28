@@ -7,7 +7,7 @@ import fatal from '../../lib/levels/fatal';
 import LevelFilter from '../../lib/filters/level-filter';
 import AllowFilter from '../../lib/filters/allow-filter';
 import LevelThresholdFilter from '../../lib/filters/level-threshold-filter';
-import { LogEvent } from '../../lib/logger';
+import { LogEvent } from '../../lib/loggers/logger';
 import { FilterResults } from '../../lib/filters/filter';
 
 export default function (test, Filter) {
@@ -19,8 +19,8 @@ export default function (test, Filter) {
     assert.throws(() => { filter.test(null); }, 'null events');
 
     const filter1 = new AllowFilter();
-    const filter2 = new LevelThresholdFilter(fatal);
-    const filter3 = new LevelFilter(warn);
+    const filter2 = new LevelThresholdFilter({ 'level': fatal });
+    const filter3 = new LevelFilter({ 'levels': warn });
 
     const warnEvent = new LogEvent('test', warn, 'this is a test');
 

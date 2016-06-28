@@ -8,7 +8,7 @@ import info from '../../lib/levels/info';
 import warn from '../../lib/levels/warn';
 import error from '../../lib/levels/error';
 import fatal from '../../lib/levels/fatal';
-import { LogEvent } from '../../lib/logger';
+import { LogEvent } from '../../lib/loggers/logger';
 import Filter, { FilterResults } from '../../lib/filters/filter';
 
 export default function (test, LevelRangeFilter) {
@@ -20,27 +20,27 @@ export default function (test, LevelRangeFilter) {
   const fatalEvent = new LogEvent('test', fatal, 'this is a test');
 
   test('filter level-range-filter', (assert) => {
-    const filter = new LevelRangeFilter(audit, debug);
+    const filter = new LevelRangeFilter({ 'min': audit, 'max': debug });
 
     assert.comment('throws with');
-    assert.throws(() => new LevelRangeFilter(void 0, audit), 'undefined min level');
-    assert.throws(() => new LevelRangeFilter(null, audit), 'null min level');
-    assert.throws(() => new LevelRangeFilter({}, audit), 'no min level type');
-    assert.throws(() => new LevelRangeFilter(audit, void 0), 'undefined max level');
-    assert.throws(() => new LevelRangeFilter(audit, null), 'null max level');
-    assert.throws(() => new LevelRangeFilter(audit, {}), 'no max level type');
-    assert.throws(() => new LevelRangeFilter(debug, audit), 'incorrect level weights');
+    assert.throws(() => new LevelRangeFilter({ 'min': void 0, 'max': audit }), 'undefined min level');
+    assert.throws(() => new LevelRangeFilter({ 'min': null, 'max': audit }), 'null min level');
+    assert.throws(() => new LevelRangeFilter({ 'min': {}, 'max': audit }), 'no min level type');
+    assert.throws(() => new LevelRangeFilter({ 'min': audit, 'max': void 0 }), 'undefined max level');
+    assert.throws(() => new LevelRangeFilter({ 'min': audit, 'max': null }), 'null max level');
+    assert.throws(() => new LevelRangeFilter({ 'min': audit, 'max': {} }), 'no max level type');
+    assert.throws(() => new LevelRangeFilter({ 'min': debug, 'max': audit }), 'incorrect level weights');
     assert.throws(() => filter.test(void 0), 'undefined events');
     assert.throws(() => filter.test(null), 'null events');
   });
 
   test('filter level-range-filter no options', (assert) => {
-    const auditLevel = new LevelRangeFilter(audit, debug);
-    const debugLevel = new LevelRangeFilter(debug, info);
-    const infoLevel = new LevelRangeFilter(info, warn);
-    const warnLevel = new LevelRangeFilter(warn, error);
-    const errorLevel = new LevelRangeFilter(error, fatal);
-    const fatalLevel = new LevelRangeFilter(fatal, fatal);
+    const auditLevel = new LevelRangeFilter({ 'min': audit, 'max': debug });
+    const debugLevel = new LevelRangeFilter({ 'min': debug, 'max': info });
+    const infoLevel = new LevelRangeFilter({ 'min': info, 'max': warn });
+    const warnLevel = new LevelRangeFilter({ 'min': warn, 'max': error });
+    const errorLevel = new LevelRangeFilter({ 'min': error, 'max': fatal });
+    const fatalLevel = new LevelRangeFilter({ 'min': fatal, 'max': fatal });
 
     assert.comment('audit and debug levels');
     assert.ok(auditLevel instanceof Filter, 'audit level-range-filter is a filter');
@@ -104,12 +104,12 @@ export default function (test, LevelRangeFilter) {
   });
 
   test('filter level-range-filter deny:false', (assert) => {
-    const auditLevelPass = new LevelRangeFilter(audit, debug, { 'deny': false });
-    const debugLevelPass = new LevelRangeFilter(debug, info, { 'deny': false });
-    const infoLevelPass = new LevelRangeFilter(info, warn, { 'deny': false });
-    const warnLevelPass = new LevelRangeFilter(warn, error, { 'deny': false });
-    const errorLevelPass = new LevelRangeFilter(error, fatal, { 'deny': false });
-    const fatalLevelPass = new LevelRangeFilter(fatal, fatal, { 'deny': false });
+    const auditLevelPass = new LevelRangeFilter({ 'min': audit, 'max': debug, 'deny': false });
+    const debugLevelPass = new LevelRangeFilter({ 'min': debug, 'max': info, 'deny': false });
+    const infoLevelPass = new LevelRangeFilter({ 'min': info, 'max': warn, 'deny': false });
+    const warnLevelPass = new LevelRangeFilter({ 'min': warn, 'max': error, 'deny': false });
+    const errorLevelPass = new LevelRangeFilter({ 'min': error, 'max': fatal, 'deny': false });
+    const fatalLevelPass = new LevelRangeFilter({ 'min': fatal, 'max': fatal, 'deny': false });
 
     assert.comment('audit and debug levels');
     assert.ok(auditLevelPass instanceof Filter, 'audit level-range-filter is a filter');
@@ -173,12 +173,12 @@ export default function (test, LevelRangeFilter) {
   });
 
   test('filter level-range-filter deny:true', (assert) => {
-    const auditLevelDeny = new LevelRangeFilter(audit, debug, { 'deny': true });
-    const debugLevelDeny = new LevelRangeFilter(debug, info, { 'deny': true });
-    const infoLevelDeny = new LevelRangeFilter(info, warn, { 'deny': true });
-    const warnLevelDeny = new LevelRangeFilter(warn, error, { 'deny': true });
-    const errorLevelDeny = new LevelRangeFilter(error, fatal, { 'deny': true });
-    const fatalLevelDeny = new LevelRangeFilter(fatal, fatal, { 'deny': true });
+    const auditLevelDeny = new LevelRangeFilter({ 'min': audit, 'max': debug, 'deny': true });
+    const debugLevelDeny = new LevelRangeFilter({ 'min': debug, 'max': info, 'deny': true });
+    const infoLevelDeny = new LevelRangeFilter({ 'min': info, 'max': warn, 'deny': true });
+    const warnLevelDeny = new LevelRangeFilter({ 'min': warn, 'max': error, 'deny': true });
+    const errorLevelDeny = new LevelRangeFilter({ 'min': error, 'max': fatal, 'deny': true });
+    const fatalLevelDeny = new LevelRangeFilter({ 'min': fatal, 'max': fatal, 'deny': true });
 
     assert.comment('audit and debug levels');
     assert.ok(auditLevelDeny instanceof Filter, 'audit level-range-filter is a filter');
@@ -242,7 +242,7 @@ export default function (test, LevelRangeFilter) {
   });
 
   test('filter level-range-filter locked:false', (assert) => {
-    const filter = new LevelRangeFilter(audit, fatal, { 'locked': false });
+    const filter = new LevelRangeFilter({ 'min': audit, 'max': fatal, 'locked': false });
 
     assert.comment('with all levels');
     assert.equals(filter.test(auditEvent), FilterResults.ALLOW, 'audit events must be allowed');
@@ -273,7 +273,7 @@ export default function (test, LevelRangeFilter) {
   });
 
   test('filter level-range-filter locked:true', (assert) => {
-    const filter = new LevelRangeFilter(audit, fatal, { 'locked': true });
+    const filter = new LevelRangeFilter({ 'min': audit, 'max': fatal, 'locked': true });
 
     assert.comment('with all levels');
     assert.equals(filter.test(auditEvent), FilterResults.ALLOW, 'audit events must be allowed');
@@ -290,7 +290,7 @@ export default function (test, LevelRangeFilter) {
   });
 
   test('filter level-range-filter special cases', (assert) => {
-    const filter = new LevelRangeFilter(info, warn, { 'locked': true });
+    const filter = new LevelRangeFilter({ 'min': info, 'max': warn, 'locked': true });
 
     assert.comment('throws with');
     assert.throws(() => { filter.min = 1; }, 'updating min with an invalid level');
